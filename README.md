@@ -35,4 +35,8 @@ Here is an incomplete list of writeups from the *Solar Wine* team for the Space 
 
   - [Where's the Sat?](https://github.com/solar-wine/writeups/blob/master/Space%20and%20Things/Where's%20the%20Sat%3F/writeup.md)
 
+## Finals
+
+  - [Earth based challenge](https://github.com/solar-wine/writeups/tree/master/Finals/Earth-based)
+  - [On-orbit challenge](https://github.com/solar-wine/writeups/tree/master/Finals/On-Orbit)
 
