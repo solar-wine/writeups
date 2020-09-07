@@ -403,10 +403,21 @@ In short, we found and exploited a flaw in the implant code to regain full contr
 
 We powered-on the Raspberry Pi using the `POWER` command of the `PL_IF` module in Cosmos, and found that the payload did not work as-is (`ALIVE_STATUS` stayed at 0). So we had to check what was wrong with the payload.
 
-From the schematics provided during the preparation phase, we knew about an UART connecting the Raspberry Pi to the FPGA board with the LEON3. While checking how the signals were routed in the FPGA by reading the Verilog code, we found out that this UART was only enabled when a specific GPIO, the GPIO 1, was set to 1.
+From the schematics provided during the preparation phase, we knew about an UART connecting the Raspberry Pi to the FPGA board with the LEON3:
+
+![uart connection](schematics.png)
+
+While checking how the signals were routed in the FPGA by reading the Verilog code, we found out that this UART was only enabled when a specific GPIO, the GPIO 1, was set to 1:
+
+```verilog
+// MUX Payload Console UART to Leon-3 (if enabled)
+assign payload_uart_internal_txd = (leon3_gpio_dout[1] == 1) ? leon3_payload_txd : 1'b1;
+assign leon3_payload_rxd = (leon3_gpio_dout[1] == 1) ? payload_uart_internal_rxd : 1'b0;
+```
 
 Based on the RTEMS development environment provided to us before the challenge, we developed a custom cFS application in order to enable the GPIO and communicate through the UART (available as `/dev/console_d`). We could then switch on the power for the Raspberry Pi board by sending the `PL_IF POWER` command, and look at what was wrong by sending back what was written on the UART.
-The resulting code to enable the GPIO was, after many Trial & Error cycles:
+
+The resulting code to enable the GPIO was, after many Trial & Error cycles since we incorrectly assumed that the GPIO ports were bitfields whereas each port was actually addressing a different GPIO bit, as follows:
 ```c
 void *gpio_hdl = gpiolib_open(1);
 if(gpio_hdl == NULL) {
