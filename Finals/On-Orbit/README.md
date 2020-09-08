@@ -22,7 +22,7 @@ For the satellite, we have to convert the satellite elevation to the distance to
 
 ## Aligning the camera to the Moon
 
-Using the previously obtained coordinates of the Moon and satellite we can compute the unit vector between the satellite and the Moon by subtracting the Moon coordinates to the satellite coordinates and dividing by the norm:
+Using the previously obtained coordinates of the Moon and satellite we can compute the unit vector between the satellite and the Moon by subtracting the satellite coordinates from the Moon coordinates and dividing by the norm:
 
 ![target vector](img/f2.png)
 
