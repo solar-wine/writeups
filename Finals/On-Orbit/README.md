@@ -105,6 +105,20 @@ Moon error: 0.4999625045528612
 
 The best time happens to be at the start of the window of opportunity.
 
+This solution can be checked against the [validation script](https://github.com/cromulencellc/hackasat-final-2020/blob/master/OnOrbitChallengeEvalTools/pythonSrc/evaluationScript.py) provided by the organizers:
+
+```
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import evaluationScript
+>>> evaluationScript.checkErrors(
+... [2020, 8, 9, 00, 20, 00],
+... [0.3627334030967909, -0.2836670119809, 0.7224360361951401, 0.5157942207880029],
+... "1 46266U 19031D   20218.52876597 +.00001160 +00000-0 +51238-4 0  9991",
+... "2 46266 051.6422 157.7760 0010355 123.0136 237.1841 15.30304846055751")
+Angular Error from Camera Boresight to Moon Center: 0.499963 deg
+Angular Error from -Z Panel to Earth Center: 0.498784 deg
+```
+
 ## The code that should have been used during the on-orbit challenge
 
 ```python
